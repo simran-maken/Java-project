@@ -11,28 +11,30 @@ pipeline{
 				echo "Hello Gursimran"
 			}
 		}
-		parallel{
-			stage("Stage3: if branch is master"){
-				when{
-						branch "master"
-				}
-				steps{
-						echo "Master branch"
-				}
-			}
-			stage("Stage4: waiting for input"){
-				steps{
-						input("Continue or not?")
-				}
-			}
-			stage("Stage5: if branch is not master"){
-				when{
-					not{
-						branch "master"
+		stage("Stage3: parallel"){
+			parallel{
+				stage("Stage 3a: if branch is master"){
+					when{
+							branch "master"
+					}
+					steps{
+							echo "Master branch"
 					}
 				}
-				steps{
-						echo "Not master branch"
+				stage("Stage 3b: waiting for input"){
+					steps{
+							input("Continue or not?")
+					}
+				}
+				stage("Stage 3c: if branch is not master"){
+					when{
+						not{
+							branch "master"
+						}
+					}
+					steps{
+							echo "Not master branch"
+					}
 				}
 			}
 		}
