@@ -13,7 +13,7 @@ pipeline{
 		}
 		stage("Stage3: if-else"){
 			steps{
-				if (branch 'master'){
+				if (env.BRANCH_NAME == 'master'){
 					echo "Master branch"
 				}
 				else{
