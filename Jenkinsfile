@@ -11,14 +11,27 @@ pipeline{
 				echo "Hello Gursimran"
 			}
 		}
-		stage("Stage3: if-else"){
+		stage("Stage3: if branch is master"){
+			when{
+					branch "master"
+			}
 			steps{
-				if (env.BRANCH_NAME == 'master'){
-					echo "Master branch"
-				}
-				else{
 					echo "Not master branch"
+			}
+		}
+		stage("Stage4: waiting for input"){
+			steps{
+					input("Continue or not?")
+			}
+		}
+		stage("Stage5: if branch is not master"){
+			when{
+				not{
+					branch "master"
 				}
+			}
+			steps{
+					echo "Not master branch"
 			}
 		}
 	}
